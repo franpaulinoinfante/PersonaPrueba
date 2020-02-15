@@ -7,7 +7,7 @@ namespace PersonaPrueba.DataAccess.Repository.Repositories
     {
         private readonly string _connectionString;
 
-        public SqlConnectionRepository()
+        protected SqlConnectionRepository()
         {
             _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
         }
