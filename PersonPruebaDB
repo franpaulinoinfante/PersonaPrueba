@@ -1,0 +1,1385 @@
+CREATE DATABASE PersonDB;
+GO
+
+USE [PersonDB]
+GO
+/****** Object:  Table [dbo].[Address]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Address](
+	[AddressID] [int] IDENTITY(1,1) NOT NULL,
+	[PersonaID] [int] NOT NULL,
+	[CityID] [int] NOT NULL,
+	[TypeAddressID] [int] NOT NULL,
+	[Sector] [nvarchar](100) NOT NULL,
+	[Calle] [nvarchar](100) NOT NULL,
+	[LocalNumber] [nvarchar](5) NOT NULL,
+ CONSTRAINT [PK_Address] PRIMARY KEY CLUSTERED 
+(
+	[AddressID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[City]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[City](
+	[CityID] [int] IDENTITY(1,1) NOT NULL,
+	[RegionID] [int] NOT NULL,
+	[CityName] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_City] PRIMARY KEY CLUSTERED 
+(
+	[CityID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Customer]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Customer](
+	[PersonID] [int] NOT NULL,
+	[CustomerCode] [char](6) NOT NULL,
+ CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 
+(
+	[PersonID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Document]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Document](
+	[DocumentID] [int] IDENTITY(1,1) NOT NULL,
+	[Document] [nvarchar](30) NOT NULL,
+ CONSTRAINT [PK_Document] PRIMARY KEY CLUSTERED 
+(
+	[DocumentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Employee]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Employee](
+	[PersonID] [int] NOT NULL,
+	[EmployeeCode] [char](6) NOT NULL,
+	[Pay] [decimal](18, 2) NOT NULL,
+	[User] [nvarchar](100) NOT NULL,
+	[Password] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED 
+(
+	[PersonID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Person]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Person](
+	[PersonID] [int] IDENTITY(1,1) NOT NULL,
+	[Lastname] [nvarchar](100) NOT NULL,
+	[Firstname] [nvarchar](100) NOT NULL,
+	[Gender] [char](1) NOT NULL,
+	[Birthday] [date] NOT NULL,
+	[Notes] [text] NULL,
+ CONSTRAINT [PK_Person] PRIMARY KEY CLUSTERED 
+(
+	[PersonID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[PersonDocument]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PersonDocument](
+	[PersonDocumentID] [int] IDENTITY(1,1) NOT NULL,
+	[DocumentID] [int] NULL,
+	[PersonID] [int] NULL,
+	[DocumentCode] [nchar](10) NOT NULL,
+ CONSTRAINT [PK_PersonDocument] PRIMARY KEY CLUSTERED 
+(
+	[PersonDocumentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Region]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Region](
+	[RegionID] [int] IDENTITY(1,1) NOT NULL,
+	[RegionName] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_Region] PRIMARY KEY CLUSTERED 
+(
+	[RegionID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TypeAdrress]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TypeAdrress](
+	[TypeAddressID] [int] IDENTITY(1,1) NOT NULL,
+	[Description] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_TypeAdrress] PRIMARY KEY CLUSTERED 
+(
+	[TypeAddressID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Address] ON 
+
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (1, 1, 1, 1, N'Cambolla', N'4', N'51')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (2, 2, 2, 2, N'Gurabo', N'3', N'2')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (3, 4, 1, 1, N'dsa', N'5', N'1')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (4, 5, 2, 4, N'fds', N'8', N'9')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (5, 6, 2, 2, N'gffds', N'5', N'66')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (9, 9, 2, 2, N'2wre', N'5', N'6')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (10, 10, 1, 4, N'1', N'1', N'1')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (11, 11, 1, 1, N'11', N'11', N'11')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (12, 12, 1, 2, N'werwe', N'12', N'12')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (13, 13, 2, 1, N'gfdg', N'1', N'1')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (14, 14, 2, 5, N'ggreg', N'1', N'1')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (15, 15, 2, 4, N'88', N'rwer', N'6')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (16, 16, 1, 2, N'wedsfsd', N'56', N'66')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (19, 19, 1, 5, N'wer', N'6', N'5')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (20, 20, 2, 2, N'2', N'2', N'2')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (22, 14, 6, 4, N'Guariones', N'3', N'5')
+INSERT [dbo].[Address] ([AddressID], [PersonaID], [CityID], [TypeAddressID], [Sector], [Calle], [LocalNumber]) VALUES (39, 52, 6, 5, N'Hatico', N'4', N'45')
+SET IDENTITY_INSERT [dbo].[Address] OFF
+SET IDENTITY_INSERT [dbo].[City] ON 
+
+INSERT [dbo].[City] ([CityID], [RegionID], [CityName]) VALUES (1, 1, N'La Vega')
+INSERT [dbo].[City] ([CityID], [RegionID], [CityName]) VALUES (2, 1, N'Santiago De Los Caballeros')
+INSERT [dbo].[City] ([CityID], [RegionID], [CityName]) VALUES (3, 2, N'Santo Domingo')
+INSERT [dbo].[City] ([CityID], [RegionID], [CityName]) VALUES (4, 2, N'Moca')
+INSERT [dbo].[City] ([CityID], [RegionID], [CityName]) VALUES (5, 6, N'Zona Oriental')
+INSERT [dbo].[City] ([CityID], [RegionID], [CityName]) VALUES (6, 6, N'San Pedro de Macoriz')
+INSERT [dbo].[City] ([CityID], [RegionID], [CityName]) VALUES (7, 6, N'La Romana')
+INSERT [dbo].[City] ([CityID], [RegionID], [CityName]) VALUES (8, 1, N'San Francisco de Macoriz')
+SET IDENTITY_INSERT [dbo].[City] OFF
+INSERT [dbo].[Customer] ([PersonID], [CustomerCode]) VALUES (15, N'JL1992')
+INSERT [dbo].[Customer] ([PersonID], [CustomerCode]) VALUES (29, N'asdsas')
+INSERT [dbo].[Customer] ([PersonID], [CustomerCode]) VALUES (30, N'asd   ')
+INSERT [dbo].[Customer] ([PersonID], [CustomerCode]) VALUES (31, N'sad   ')
+SET IDENTITY_INSERT [dbo].[Document] ON 
+
+INSERT [dbo].[Document] ([DocumentID], [Document]) VALUES (1, N'CID')
+INSERT [dbo].[Document] ([DocumentID], [Document]) VALUES (2, N'Licencia')
+INSERT [dbo].[Document] ([DocumentID], [Document]) VALUES (3, N'Pasaporte')
+INSERT [dbo].[Document] ([DocumentID], [Document]) VALUES (4, N'NTF')
+SET IDENTITY_INSERT [dbo].[Document] OFF
+INSERT [dbo].[Employee] ([PersonID], [EmployeeCode], [Pay], [User], [Password]) VALUES (1, N'FP1989', CAST(35000.00 AS Decimal(18, 2)), N'FRANPAULINOINFANTE', N'42rjwm9ug')
+INSERT [dbo].[Employee] ([PersonID], [EmployeeCode], [Pay], [User], [Password]) VALUES (4, N'JL1992', CAST(59624.00 AS Decimal(18, 2)), N'jatnnalopez', N'jatnnalopez92')
+INSERT [dbo].[Employee] ([PersonID], [EmployeeCode], [Pay], [User], [Password]) VALUES (6, N'HJ2000', CAST(32433.00 AS Decimal(18, 2)), N'joagarcia', N'joangarcia99')
+INSERT [dbo].[Employee] ([PersonID], [EmployeeCode], [Pay], [User], [Password]) VALUES (13, N'MP1997', CAST(32134.00 AS Decimal(18, 2)), N'marteperala', N'321easdas')
+INSERT [dbo].[Employee] ([PersonID], [EmployeeCode], [Pay], [User], [Password]) VALUES (19, N'MJ1999', CAST(56595.00 AS Decimal(18, 2)), N'moreljoan', N'ddsads')
+SET IDENTITY_INSERT [dbo].[Person] ON 
+
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (1, N'Paulino', N'Francisco', N'M', CAST(N'1989-08-30' AS Date), N'Hello Word!')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (2, N'Infante', N'Javier', N'M', CAST(N'1989-08-01' AS Date), N'h')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (4, N'Abreu', N'Junior', N'M', CAST(N'2000-03-22' AS Date), N'Hola')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (5, N'Fernandez', N'Alex', N'M', CAST(N'2000-03-22' AS Date), N'Hola')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (6, N'Hernandez', N'Juan', N'M', CAST(N'2000-03-22' AS Date), N'Hola')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (9, N'Ortiz', N'David', N'M', CAST(N'1978-04-15' AS Date), N'Hola')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (10, N'Perez', N'Jessica', N'F', CAST(N'1978-04-15' AS Date), N'Hola')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (11, N'Smith', N'Jefferson', N'M', CAST(N'2000-02-15' AS Date), N'Hola')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (12, N'Noel', N'Karla', N'F', CAST(N'1995-07-13' AS Date), N'Karla')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (13, N'Martes', N'Perla', N'F', CAST(N'1997-09-28' AS Date), N'Hola Perla')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (14, N'Martes', N'Perla', N'F', CAST(N'1997-09-28' AS Date), N'Hola Perla')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (15, N'Lopez', N'Jatnna', N'F', CAST(N'1992-04-11' AS Date), N'HOLA JATNNA')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (16, N'Borrame', N'Borrame@', N'F', CAST(N'2020-02-08' AS Date), N'qwds')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (19, N'Morel', N'Joan', N'M', CAST(N'1999-12-01' AS Date), N'HOla')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (20, N'qwe', N'rrrrr', N'M', CAST(N'2020-02-05' AS Date), N'qweqwe')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (21, N'Gutierrez', N'Johnnatan', N'M', CAST(N'1988-12-26' AS Date), N'Hola')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (22, N'Cepeda', N'Junior', N'M', CAST(N'2000-03-02' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (23, N'Green', N'Jeff', N'M', CAST(N'2020-02-11' AS Date), N'hola')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (24, N'', N'', N'F', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (25, N'', N'', N'F', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (26, N'', N'', N'F', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (27, N'', N'', N'F', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (28, N'Jimenez', N'Lydia', N'F', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (29, N'Paulino', N'Francisco', N'M', CAST(N'1995-07-05' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (30, N'Paulino2', N'Francisco2', N'M', CAST(N'1995-07-05' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (31, N'asd', N'asd', N'F', CAST(N'2020-02-11' AS Date), N'asd')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (32, N'Infante', N'Javier', N'F', CAST(N'2000-02-01' AS Date), N'asdas')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (33, N'Rodriguez', N'Kay', N'M', CAST(N'2000-05-25' AS Date), N'Hola')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (34, N'Abrams', N'JJ', N'M', CAST(N'1989-01-26' AS Date), N'asda')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (35, N'Infante', N'Silvio', N'M', CAST(N'2000-02-08' AS Date), N'31232')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (37, N'Feliz', N'Jatnna', N'F', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (38, N'Ortega', N'Juan', N'M', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (39, N'wer', N'324', N'M', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (40, N'ewr', N'', N' ', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (41, N'qwe', N'qwe', N' ', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (42, N'qwe', N'qwe', N' ', CAST(N'2020-02-11' AS Date), N'')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (50, N'sdfsd', N'fdsf', N'F', CAST(N'2020-02-12' AS Date), N'sdf')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (51, N'wrew', N'ewrwe', N'F', CAST(N'2020-02-12' AS Date), N'ewerwe')
+INSERT [dbo].[Person] ([PersonID], [Lastname], [Firstname], [Gender], [Birthday], [Notes]) VALUES (52, N'Altagracia', N'Rodiguez', N'F', CAST(N'1959-06-19' AS Date), N'Hola')
+SET IDENTITY_INSERT [dbo].[Person] OFF
+SET IDENTITY_INSERT [dbo].[PersonDocument] ON 
+
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (1, 2, 1, N'23333423  ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (2, 3, 2, N'88989     ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (3, 1, 4, N'12324     ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (4, 2, 5, N'3423      ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (5, 3, 6, N'3423      ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (8, 1, 33, N'31232     ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (9, 1, 34, N'1234      ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (10, 1, 35, N'12321     ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (12, 3, 37, N'99995     ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (13, 3, 38, N'rr32423   ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (14, 1, 39, N'rwe       ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (30, 4, 50, N'sdf       ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (31, 1, 50, N'asd       ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (32, 3, 51, N'wer       ')
+INSERT [dbo].[PersonDocument] ([PersonDocumentID], [DocumentID], [PersonID], [DocumentCode]) VALUES (33, 1, 52, N'04795262  ')
+SET IDENTITY_INSERT [dbo].[PersonDocument] OFF
+SET IDENTITY_INSERT [dbo].[Region] ON 
+
+INSERT [dbo].[Region] ([RegionID], [RegionName]) VALUES (1, N'Norte')
+INSERT [dbo].[Region] ([RegionID], [RegionName]) VALUES (2, N'Sur')
+INSERT [dbo].[Region] ([RegionID], [RegionName]) VALUES (6, N'Oriental')
+INSERT [dbo].[Region] ([RegionID], [RegionName]) VALUES (7, N'Central')
+SET IDENTITY_INSERT [dbo].[Region] OFF
+SET IDENTITY_INSERT [dbo].[TypeAdrress] ON 
+
+INSERT [dbo].[TypeAdrress] ([TypeAddressID], [Description]) VALUES (1, N'Home')
+INSERT [dbo].[TypeAdrress] ([TypeAddressID], [Description]) VALUES (2, N'Work')
+INSERT [dbo].[TypeAdrress] ([TypeAddressID], [Description]) VALUES (4, N'Sister')
+INSERT [dbo].[TypeAdrress] ([TypeAddressID], [Description]) VALUES (5, N'Friend')
+SET IDENTITY_INSERT [dbo].[TypeAdrress] OFF
+ALTER TABLE [dbo].[Address]  WITH CHECK ADD  CONSTRAINT [FK_Address_City] FOREIGN KEY([CityID])
+REFERENCES [dbo].[City] ([CityID])
+GO
+ALTER TABLE [dbo].[Address] CHECK CONSTRAINT [FK_Address_City]
+GO
+ALTER TABLE [dbo].[Address]  WITH CHECK ADD  CONSTRAINT [FK_Address_Person] FOREIGN KEY([PersonaID])
+REFERENCES [dbo].[Person] ([PersonID])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Address] CHECK CONSTRAINT [FK_Address_Person]
+GO
+ALTER TABLE [dbo].[Address]  WITH CHECK ADD  CONSTRAINT [FK_Address_TypeAdrress] FOREIGN KEY([TypeAddressID])
+REFERENCES [dbo].[TypeAdrress] ([TypeAddressID])
+GO
+ALTER TABLE [dbo].[Address] CHECK CONSTRAINT [FK_Address_TypeAdrress]
+GO
+ALTER TABLE [dbo].[City]  WITH CHECK ADD  CONSTRAINT [FK_City_Region] FOREIGN KEY([RegionID])
+REFERENCES [dbo].[Region] ([RegionID])
+GO
+ALTER TABLE [dbo].[City] CHECK CONSTRAINT [FK_City_Region]
+GO
+ALTER TABLE [dbo].[Customer]  WITH CHECK ADD  CONSTRAINT [FK_Customer_Person] FOREIGN KEY([PersonID])
+REFERENCES [dbo].[Person] ([PersonID])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Customer] CHECK CONSTRAINT [FK_Customer_Person]
+GO
+ALTER TABLE [dbo].[Employee]  WITH CHECK ADD  CONSTRAINT [FK_Employee_Person] FOREIGN KEY([PersonID])
+REFERENCES [dbo].[Person] ([PersonID])
+GO
+ALTER TABLE [dbo].[Employee] CHECK CONSTRAINT [FK_Employee_Person]
+GO
+ALTER TABLE [dbo].[PersonDocument]  WITH CHECK ADD  CONSTRAINT [FK_PersonDocument_Document] FOREIGN KEY([DocumentID])
+REFERENCES [dbo].[Document] ([DocumentID])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[PersonDocument] CHECK CONSTRAINT [FK_PersonDocument_Document]
+GO
+ALTER TABLE [dbo].[PersonDocument]  WITH CHECK ADD  CONSTRAINT [FK_PersonDocument_Person] FOREIGN KEY([PersonID])
+REFERENCES [dbo].[Person] ([PersonID])
+ON UPDATE CASCADE
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[PersonDocument] CHECK CONSTRAINT [FK_PersonDocument_Person]
+GO
+/****** Object:  StoredProcedure [dbo].[spAddressDelete]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spAddressDelete] --spAddressEdit --spAddressInsert --spAddressGetAll
+	@AddressID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DELETE FROM [dbo].[Address]
+		WHERE [AddressID] = @AddressID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spAddressEdit]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spAddressEdit] --spAddressInsert --spAddressGetAll
+	@AddressID INT,
+	@PersonID INT,
+	@CityID INT,
+	@TypeAddressID INT,
+	@Sector NVARCHAR(100),
+	@Calle NVARCHAR(100),
+	@LocalNumber NVARCHAR(5)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE [dbo].[Address]
+	   SET [PersonaID] = @PersonID
+		  ,[CityID] = @CityID
+		  ,[TypeAddressID] = @TypeAddressID
+		  ,[Sector] = @Sector
+		  ,[Calle] = @Calle
+		  ,[LocalNumber] = @LocalNumber
+	 WHERE [AddressID] = @AddressID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spAddressGetAll]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spAddressGetAll]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT [AddressID]
+		  ,[PersonaID]
+		  ,[CityID]
+		  ,[TypeAddressID]
+		  ,[Sector]
+		  ,[Calle]
+		  ,[LocalNumber]
+	  FROM [dbo].[Address]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spAddressInsert]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spAddressInsert] --spAddressGetAll
+	@PersonID INT,
+	@CityID INT,
+	@TypeAddressID INT,
+	@Sector NVARCHAR(100),
+	@Calle NVARCHAR(100),
+	@LocalNumber NVARCHAR(5)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO [dbo].[Address]
+			   ([PersonaID]
+			   ,[CityID]
+			   ,[TypeAddressID]
+			   ,[Sector]
+			   ,[Calle]
+			   ,[LocalNumber])
+		 VALUES
+			   (@PersonID
+			   ,@CityID
+			   ,@TypeAddressID
+			   ,@Sector
+			   ,@Calle
+			   ,@LocalNumber);
+			   SELECT SCOPE_IDENTITY();
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spCityDelete]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spCityDelete]
+	@CityID INT
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	DELETE FROM [dbo].[City]
+	 WHERE [CityID] = @CityID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spCityEdit]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spCityEdit]
+	@CityID INT,
+	@RegionID INT,
+	@CityName NVARCHAR(100)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE [dbo].[City]
+	   SET [RegionID] = @RegionID
+		  ,[CityName] = @CityName
+	 WHERE [CityID] = @CityID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spCityGetAll]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spCityGetAll]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+		
+	SELECT [CityID]
+		  ,[RegionID]
+		  ,[CityName]
+	  FROM [dbo].[City]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spCityInsert]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spCityInsert]
+	@RegionID INT,
+	@CityName NVARCHAR(100)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	INSERT INTO [dbo].[City]
+			   ([RegionID]
+			   ,[CityName])
+		 VALUES
+			   (@RegionID, @CityName)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spCustomerDelete]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,> 
+-- spCustomerGetAll---spCustomerInsert---spCustomerEdit--spCustomerDelete
+-- =============================================
+CREATE PROCEDURE [dbo].[spCustomerDelete]
+	@PersonID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DELETE FROM [dbo].[Customer]
+	 WHERE [Customer].[PersonID] = @PersonID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spCustomerEdit]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,> spCustomerGetAll---spCustomerInsert
+-- =============================================
+CREATE PROCEDURE [dbo].[spCustomerEdit]
+	@PersonID INT,
+	@CustomerCode CHAR(6)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE [dbo].[Customer]
+	   SET [PersonID] = @PersonID
+		  ,[CustomerCode] = @CustomerCode
+	 WHERE [Customer].[PersonID] = @PersonID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spCustomerGetAll]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spCustomerGetAll]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT [PersonID]
+		  ,[CustomerCode]
+	  FROM [dbo].[Customer]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spCustomerInsert]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,> spCustomerGetAll
+-- =============================================
+CREATE PROCEDURE [dbo].[spCustomerInsert]
+	@PersonID INT,
+	@CustomerCode CHAR(6)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO [dbo].[Customer]
+			   ([PersonID]
+			   ,[CustomerCode])
+		 VALUES
+			   (@PersonID, @CustomerCode)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spDocumentDelete]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spDocumentDelete]
+	@DocumentID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here	
+	DELETE FROM [dbo].[Document]
+	 WHERE [DocumentID] = @DocumentID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spDocumentEdit]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spDocumentEdit]
+	@DocumentID INT,
+	@Document NVARCHAR(30)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here	
+	UPDATE [dbo].[Document]
+	   SET [Document] = @Document
+	 WHERE [DocumentID] = @DocumentID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spDocumentGetAll]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spDocumentGetAll]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here	
+	SELECT [DocumentID]
+		  ,[Document]
+	  FROM [dbo].[Document]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spDocumentInsert]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spDocumentInsert]
+	@Document NVARCHAR(30)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here	
+
+	INSERT INTO [dbo].[Document]
+			   ([Document])
+		 VALUES
+			   (@Document)
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spEmployeeDelete]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spEmployeeDelete]
+	-- Add the parameters for the stored procedure here
+	@PersonID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DELETE FROM [dbo].[Employee]
+      WHERE [PersonID] = @PersonID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spEmployeeEdit]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spEmployeeEdit]
+	-- Add the parameters for the stored procedure here
+	--@DocumentID INT,
+	@PersonID INT,
+	@EmployeeCode CHAR(6),
+	@Lastname NVARCHAR(100),
+	@Firstname NVARCHAR(100),
+	@User NVARCHAR(100),
+	@Password NVARCHAR(100),
+	@Gender CHAR(1),
+	@Birthday DATE,
+	@Pay DECIMAL(18,2),
+	@Notes TEXT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE [dbo].[Person]
+	   SET [Lastname] = @Lastname
+		  ,[Firstname] = @Firstname
+		  ,[Gender] = @Gender
+		  ,[Birthday] = @Birthday
+		  ,[Notes] = @Notes
+	   WHERE [PersonID] = @PersonID;
+
+	UPDATE [dbo].[Employee]
+	   SET [PersonID] = @PersonID
+		  ,[EmployeeCode] = @EmployeeCode
+		  ,[Pay] = @Pay
+		  ,[User] = @User
+		  ,[Password] = @Password
+		  WHERE [PersonID] = @PersonID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spEmployeeGetAll]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spEmployeeGetAll]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT [p].[PersonID]
+		  ,[e].[EmployeeCode]
+		  ,[p].[Lastname]
+		  ,[p].[Firstname]
+		  ,[e].[User]
+		  ,[e].[Password]
+		  ,[p].[Gender]
+		  ,[p].[Birthday]
+		  ,[e].[Pay]
+		  ,[p].[Notes]
+	  FROM [dbo].[Employee] AS [e]
+	  LEFT JOIN [dbo].[Person] AS [p] 
+		ON [p].[PersonID] = [e].[PersonID]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spEmployeeInsert]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spEmployeeInsert]
+	-- Add the parameters for the stored procedure here
+	--@DocumentID INT,
+	@EmployeeCode CHAR(6),
+	@Lastname NVARCHAR(100),
+	@Firstname NVARCHAR(100),
+	@User NVARCHAR(100),
+	@Password NVARCHAR(100),
+	@Gender CHAR(1),
+	@Birthday DATE,
+	@Pay DECIMAL(18,2),
+	@Notes TEXT
+	--@DocumentCode NVARCHAR(10),
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DECLARE @PersonID INT;
+
+	INSERT INTO [dbo].[Person]
+			   ([Lastname]
+			   ,[Firstname]
+			   ,[Gender]
+			   ,[Birthday]
+			   ,[Notes])
+		 VALUES
+			   (@Lastname, @Firstname,@Gender, @Birthday, @Notes)
+		   SELECT @PersonID = SCOPE_IDENTITY();
+		   
+	INSERT INTO [dbo].[Employee]
+           ([PersonID]
+           ,[EmployeeCode]
+           ,[Pay]
+           ,[User]
+           ,[Password])
+     VALUES
+           (@PersonID
+		   ,@EmployeeCode
+		   ,@Pay
+		   ,@User
+		   ,@Password)
+
+		   SELECT @PersonID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spPersonDelete]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spPersonDelete]
+	-- Add the parameters for the stored procedure here
+	@PersonID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DELETE FROM [dbo].[Person]
+		WHERE [PersonID] = @PersonID
+
+	--DELETE PersonDocument 
+	--	FROM [dbo].[PersonDocument]
+	--	JOIN dbo.Person AS [p]
+	--	ON [p].PersonID = [PersonDocument].[PersonId]
+	--	JOIN [dbo].[Document] AS d
+	--	ON [d].[DocumentID] = [PersonDocument].[DocumentID]		
+ --     WHERE [p].[PersonId] = @PersonID AND [d].[DocumentID] = @DocumentID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spPersonDocumentEdit]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spPersonDocumentEdit]
+	@PersonDocumentID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+
+	DELETE FROM [dbo].[PersonDocument]
+	 WHERE [PersonDocumentID] = @PersonDocumentID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spPersonDocumentGetAll]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spPersonDocumentGetAll]
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT [PersonDocumentID]
+		  ,[DocumentID]
+		  ,[PersonID]
+		  ,[DocumentCode]
+	  FROM [dbo].[PersonDocument]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spPersonDocumentInsert]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spPersonDocumentInsert]
+	@DocumentID INT,
+	@PersonID INT,
+	@DocumentCode NVARCHAR(10)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO [dbo].[PersonDocument]
+			   ([DocumentID]
+			   ,[PersonID]
+			   ,[DocumentCode])
+		 VALUES
+			   (@DocumentID
+			   ,@PersonID
+			   ,@DocumentCode);
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spPersonEdit]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spPersonEdit]
+	@PersonID INT,
+	--@DocumentID INT,
+	@Lastname NVARCHAR(100),
+	@Firstname NVARCHAR(100),
+	@Gender CHAR(1),
+	@Birthday DATE,
+	@Notes TEXT
+	--@DocumentCode NVARCHAR(10)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DECLARE @id int;
+
+	UPDATE [dbo].[Person]
+	   SET [Lastname] = @Lastname
+		  ,[Firstname] = @Firstname
+		  ,[Gender] = @Gender
+		  ,[Birthday] = @Birthday
+		  ,[Notes] = @Notes
+	 WHERE [PersonID] = @PersonID;
+	 SELECT @id = SCOPE_IDENTITY();
+
+	--UPDATE [dbo].[PersonDocument]
+	--   SET [DocumentID] = @DocumentID
+	--	  ,[PersonId] = @PersonID
+	--	  ,[DocumentCode] = @DocumentCode
+	-- WHERE [DocumentID] = @DocumentID AND 
+	--	   [PersonDocument].PersonId = @PersonID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spPersonGetAll]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spPersonGetAll]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT [p].[PersonID]
+		  ,[p].[Lastname]
+		  ,[p].[Firstname]
+		  ,[p].[Gender]
+		  ,[p].[Birthday]
+		  ,[p].[Notes]
+	  FROM [dbo].[Person] AS p
+END
+
+
+/*
+	SELECT [p].[PersonID]
+		  ,[p].[Lastname]
+		  ,[p].[Firstname]
+		  ,[p].[Gender]
+		  ,[p].[Birthday]
+		  ,[pd].[DocumentID]
+		  ,[pd].[DocumentCode]
+		  ,[p].[Notes]
+	  FROM [dbo].[Person] AS p
+	  INNER JOIN [dbo].[PersonDocument] AS pd
+		ON  [p].[PersonID] = [pd].[PersonId];
+*/
+GO
+/****** Object:  StoredProcedure [dbo].[spPersonInsert]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spPersonInsert]
+	-- Add the parameters for the stored procedure here
+	--@DocumentID INT,
+	@Lastname NVARCHAR(100),
+	@Firstname NVARCHAR(100),
+	@Gender CHAR(1),
+	@Birthday DATE,
+	@Notes TEXT NULL
+	--@DocumentCode NVARCHAR(10)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DECLARE @PersonID INT;
+
+	INSERT INTO [dbo].[Person]
+			   ([Lastname]
+			   ,[Firstname]
+			   ,[Gender]
+			   ,[Birthday]
+			   ,[Notes])
+		 VALUES
+			   (@Lastname, @Firstname,@Gender, @Birthday, @Notes)
+		   SELECT SCOPE_IDENTITY();
+
+		   -- SELECT @PersonID = SCOPE_IDENTITY();
+	--INSERT INTO [dbo].[PersonDocument]
+	--		   ([DocumentID]
+	--		   ,[PersonId]
+	--		   ,[DocumentCode])
+	--	 VALUES
+	--		   (@DocumentID, @PersonID, @DocumentCode);
+
+	--	   SELECT @PersonID;
+END
+
+
+
+/*
+
+-- Add the parameters for the stored procedure here
+	@DocumentID INT,
+	@Lastname NVARCHAR(100),
+	@Firstname NVARCHAR(100),
+	@Gender CHAR(1),
+	@Birthday DATE,
+	@Notes TEXT,
+	@DocumentCode NVARCHAR(10),
+	@CustomerCode CHAR(6)
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DECLARE @PersonID INT;
+
+	INSERT INTO [dbo].[Person]
+			   ([Lastname]
+			   ,[Firstname]
+			   ,[Gender]
+			   ,[Birthday]
+			   ,[Notes])
+		 VALUES
+			   (@Lastname, @Firstname,@Gender, @Birthday, @Notes)
+		   SELECT @PersonID = SCOPE_IDENTITY();
+
+	INSERT INTO [dbo].[Customer]
+				([PersonID]
+				,[CustomerCode])
+		VALUES(@PersonID, @CustomerCode)
+
+	
+	INSERT INTO [dbo].[PersonDocument]
+			   ([DocumentID]
+			   ,[PersonId]
+			   ,[DocumentCode])
+		 VALUES
+			   (@DocumentID, @PersonID, @DocumentCode);
+
+	SELECT @PersonID;
+*/
+GO
+/****** Object:  StoredProcedure [dbo].[spRegionDelete]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spRegionDelete]
+	@RegionID INT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DELETE FROM [dbo].[Region]
+		WHERE [RegionID] = @RegionID;
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spRegionEdit]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spRegionEdit]
+	@RegionID INT,
+	@RegionName NVARCHAR(100)
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	UPDATE [dbo].[Region]
+		SET [RegionName] = @RegionName
+	WHERE [RegionID] = @RegionID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spRegionGetAll]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spRegionGetAll]
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT [RegionID]
+			,[RegionName]
+		FROM [dbo].[Region]
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spRegionInsert]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spRegionInsert]
+	@RegionName NVARCHAR(100)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	INSERT INTO [dbo].[Region]
+           ([RegionName])
+     VALUES
+           (@RegionName)
+	SELECT SCOPE_IDENTITY();
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spTypeAddressEdit]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spTypeAddressEdit]
+	@TypeAddressID INT,
+	@Description NVARCHAR(100)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	UPDATE [dbo].[TypeAdrress]
+	   SET [Description] = @Description
+	 WHERE [TypeAddressID] = @TypeAddressID;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spTypeAddressGetAll]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spTypeAddressGetAll]
+
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	SELECT [TypeAddressID]
+			,[Description]
+		FROM [dbo].[TypeAdrress]
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spTypeAddressInsert]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spTypeAddressInsert]
+	@Description NVARCHAR(100)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	INSERT INTO [dbo].[TypeAdrress]
+			   ([Description])
+		 VALUES
+           (@Description);
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spTypeAddressRemove]    Script Date: 2/15/2020 3:52:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[spTypeAddressRemove]
+	@TypeAddressID INT
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DELETE FROM [dbo].[TypeAdrress]
+	 WHERE [TypeAddressID] = @TypeAddressID;
+END
+GO
