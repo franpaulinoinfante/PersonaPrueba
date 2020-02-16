@@ -16,7 +16,7 @@ namespace PersonaPrueba.Views
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Views.RegionView());
+            Application.Run(new Views.CityView());
         }
     }
 }

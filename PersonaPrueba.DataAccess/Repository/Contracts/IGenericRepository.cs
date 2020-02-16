@@ -10,7 +10,7 @@ namespace PersonaPrueba.DataAccess.Repository.Contracts
     {
         int Add(Entity entity);
         void Edit(Entity entity);
-        void Delete(int entity);
+        void Delete(Entity entity);
         IEnumerable<Entity> GetAll();
     }
 }

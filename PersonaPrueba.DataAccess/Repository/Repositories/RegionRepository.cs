@@ -40,7 +40,7 @@ namespace PersonaPrueba.DataAccess.Repository.Repositories
             }
         }
 
-        public void Delete(int id)
+        public void Delete(RegionEntity entity)
         {
             using (SqlConnection connection = GetSqlConnection())
             {
@@ -52,7 +52,7 @@ namespace PersonaPrueba.DataAccess.Repository.Repositories
                     sqlCommand.CommandText = spRegionDelete;
                     sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                    sqlCommand.Parameters.Add(new SqlParameter("@RegionID", SqlDbType.Int)).Value = id;
+                    sqlCommand.Parameters.Add(new SqlParameter("@RegionID", SqlDbType.Int)).Value = entity.RegionID;
 
                     sqlCommand.ExecuteNonQuery();
                 }

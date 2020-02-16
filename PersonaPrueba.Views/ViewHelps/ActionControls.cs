@@ -17,9 +17,15 @@ namespace PersonaPrueba.Views.ViewHelps
                 {
                     ((TextBox)ctrl).ReadOnly = false;
                 }
+
                 if (ctrl is Button)
                 {
                     ((Button)ctrl).Enabled = true;
+                }
+
+                if (ctrl is ComboBox)
+                {
+                    ((ComboBox)ctrl).Enabled = true;
                 }
             }
         }
@@ -32,9 +38,15 @@ namespace PersonaPrueba.Views.ViewHelps
                 {
                     ((TextBox)ctrl).ReadOnly = true;
                 }
+
                 if (ctrl is Button)
                 {
                     ((Button)ctrl).Enabled = false;
+                }
+
+                if (ctrl is ComboBox)
+                {
+                    ((ComboBox)ctrl).Enabled = false;
                 }
             }
         }
@@ -47,6 +59,7 @@ namespace PersonaPrueba.Views.ViewHelps
                 {
                     ((TextBox)ctrl).Clear();
                 }
+
                 if (ctrl is ComboBox)
                 {
                     ((ComboBox)ctrl).SelectedIndex = -1;

@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ICity.cs" />
     <Compile Include="Contracts\IGenericDataAccess.cs" />
     <Compile Include="Contracts\IRegion.cs" />
+    <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="ObjectValues\EntityState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

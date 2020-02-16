@@ -43,9 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Contracts\ICityRepository.cs" />
     <Compile Include="Repository\Contracts\IGenericRepository.cs" />
     <Compile Include="Repository\Contracts\IRegionRepository.cs" />
+    <Compile Include="Repository\Entities\CityEntity.cs" />
     <Compile Include="Repository\Entities\RegionEntity.cs" />
+    <Compile Include="Repository\Repositories\CityRepository.cs" />
     <Compile Include="Repository\Repositories\RegionRepository.cs" />
     <Compile Include="Repository\Repositories\SqlConnectionRepository.cs" />
   </ItemGroup>

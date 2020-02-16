@@ -1,21 +1,19 @@
-﻿using PersonaPrueba.Domain.ObjectValues;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PersonaPrueba.DataAccess.Repository.Contracts;
 using PersonaPrueba.DataAccess.Repository.Entities;
 using PersonaPrueba.DataAccess.Repository.Repositories;
 using PersonaPrueba.Domain.Contracts;
+using PersonaPrueba.Domain.ObjectValues;
+
 
 namespace PersonaPrueba.Domain.Models
 {
     public class RegionModel : IRegion
     {
         private EntityState _state;
-        private IRegionRepository _regionRepository;
-        private RegionEntity _entity;
+        private readonly IRegionRepository _regionRepository;
+        private readonly RegionEntity _entity;
 
         public RegionModel()
         {
@@ -49,7 +47,7 @@ namespace PersonaPrueba.Domain.Models
 
         public string SaveChanges()
         {
-            string message = string.Empty;
+            string message;
 
             try
             {
@@ -59,15 +57,15 @@ namespace PersonaPrueba.Domain.Models
                 {
                     case EntityState.Added:
                         RegionID = _regionRepository.Add(_entity);
-                        message = $"Successfuly record. \nThe new Id is: {RegionID}";
+                        message = $"Successfully recorded. \nThe new Id is: {RegionID}";
                         break;
                     case EntityState.Deleted:
-                        _regionRepository.Delete(RegionID);
+                        _regionRepository.Delete(_entity);
                         message = $"Successfuly Deleted. \nThe region delete is: {RegionName}";
                         break;
                     case EntityState.Edited:
                         _regionRepository.Edit(_entity);
-                        message = $"Successfuly edited. \nThe region edite is: {RegionName}";
+                        message = $"Successfuly edited. \nThe region edit is: {RegionName}";
                         break;
                     default:
                         message = "Select a operation";

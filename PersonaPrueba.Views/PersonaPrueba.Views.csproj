@@ -51,6 +51,13 @@
     <Compile Include="ViewHelps\ActionControls.cs" />
     <Compile Include="ViewHelps\DialogConfirm.cs" />
     <Compile Include="ViewHelps\MessageResult.cs" />
+    <Compile Include="ViewModels\CityViewModel.cs" />
+    <Compile Include="Views\CityView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CityView.Designer.cs">
+      <DependentUpon>CityView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegionView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +73,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\CityView.resx">
+      <DependentUpon>CityView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\RegionView.resx">
       <DependentUpon>RegionView.cs</DependentUpon>
     </EmbeddedResource>
@@ -82,9 +92,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\PersonaPrueba.Domain\PersonaPrueba.Domain.csproj">
       <Project>{4ab26770-ee7f-4b6d-a4b5-9530dc20e1ad}</Project>

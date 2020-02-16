@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PersonaPrueba.Domain.Contracts;
 using PersonaPrueba.Domain.Models;
@@ -16,7 +9,7 @@ namespace PersonaPrueba.Views.Views
 {
     public partial class RegionView : Form
     {
-        private IRegion _regionModel;
+        private readonly IRegion _regionModel;
         private int _index = -1;
         private int _id = 0;
 
@@ -34,7 +27,7 @@ namespace PersonaPrueba.Views.Views
 
         private void btnSalve_Click(object sender, EventArgs e)
         {
-            if (DialogConfirm.GetResult("Do you want save the changes?","Question").Equals(DialogResult.Cancel))
+            if (DialogConfirm.GetResult("Do you want save the changes?", "Question").Equals(DialogResult.Cancel))
             {
                 return;
             }
@@ -52,9 +45,9 @@ namespace PersonaPrueba.Views.Views
 
         private void btnNew_Click(object sender, EventArgs e)
         {
-            _regionModel.State = EntityState.Added;
-
             ActiveControllers();
+
+            _regionModel.State = EntityState.Added;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -65,10 +58,9 @@ namespace PersonaPrueba.Views.Views
                 return;
             }
 
-            _regionModel.State = EntityState.Edited;
-
             ActiveControllers();
 
+            _regionModel.State = EntityState.Edited;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -86,7 +78,7 @@ namespace PersonaPrueba.Views.Views
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            if (DialogConfirm.GetResult("Do you want cancel the changes","Question").Equals(DialogResult.No))
+            if (DialogConfirm.GetResult("Do you want cancel the changes", "Question").Equals(DialogResult.No))
             {
                 return;
             }
