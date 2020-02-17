@@ -10,11 +10,8 @@ namespace PersonaPrueba.Views.Views
 {
     public partial class CityView : Form
     {
-        //private ICity _cityModel = new CityModel();
-        //private IRegion _RegionModel = new RegionModel();
-
         private CityViewModel _cityView;
-        private EntityState _state;
+
         private int _index = -1;
         private int _id = -1;
 
@@ -38,15 +35,13 @@ namespace PersonaPrueba.Views.Views
                 return;
             }
 
-            _cityView.CityID = _id;
-            _cityView.RegionID = Convert.ToInt32(cmbRegion.SelectedValue);
-            _cityView.CityName = txtCityName.Text;
+            SetDataToPropierties();
 
-            _cityView.SetDataToPropierties();
-
-            MessageResult.ShowResults(_cityView.SaveChanges());
-
-            _cityView.SaveChanges();
+            if (ValidationData(_cityView) == true)
+            {
+                
+                MessageResult.ShowResults(_cityView.SaveChanges());
+            }
 
             BlockControlleres();
 
@@ -57,9 +52,11 @@ namespace PersonaPrueba.Views.Views
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+            ActionControls.RefreshControllers(this);
+
             ActiveControlleres();
             
-            _state = EntityState.Added;
+            _cityView.State = EntityState.Added;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -72,7 +69,7 @@ namespace PersonaPrueba.Views.Views
 
             ActiveControlleres();
 
-            _state = EntityState.Edited;
+            _cityView.State = EntityState.Edited;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -83,7 +80,7 @@ namespace PersonaPrueba.Views.Views
                 return;
             }
 
-            _state = EntityState.Deleted;
+            _cityView.State = EntityState.Deleted;
 
             btnSalve_Click(this, e);
         }
@@ -130,6 +127,26 @@ namespace PersonaPrueba.Views.Views
             cmbRegion.DisplayMember = "RegionName";
             cmbRegion.ValueMember = "RegionID";
             cmbRegion.DataSource = _cityView.GetRegionModels();
+        }
+
+        private void SetDataToPropierties()
+        {
+            _cityView.CityID = _id;
+            _cityView.RegionID = Convert.ToInt32(cmbRegion.SelectedValue);
+            _cityView.CityName = txtCityName.Text;
+        }
+
+        private bool ValidationData(CityViewModel cityViewModel)
+        {
+            bool valid = new DataValidation(cityViewModel).Validate();
+            if (valid == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void ActiveControlleres()

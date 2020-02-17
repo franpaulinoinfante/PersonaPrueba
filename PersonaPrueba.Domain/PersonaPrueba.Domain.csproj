@@ -44,9 +44,11 @@
     <Compile Include="Contracts\ICity.cs" />
     <Compile Include="Contracts\IGenericDataAccess.cs" />
     <Compile Include="Contracts\IRegion.cs" />
+    <Compile Include="Entities\CityEntity.cs" />
     <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="ObjectValues\EntityState.cs" />
+    <Compile Include="ObjectValues\Factory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

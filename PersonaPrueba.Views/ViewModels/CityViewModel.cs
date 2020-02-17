@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PersonaPrueba.Domain.Contracts;
 using PersonaPrueba.Domain.Models;
+using PersonaPrueba.Domain.ObjectValues;
 
 namespace PersonaPrueba.Views.ViewModels
 {
@@ -20,42 +22,43 @@ namespace PersonaPrueba.Views.ViewModels
             _region = new RegionModel();
         }
 
+        [Required(ErrorMessage = "The field Region is requerid")]
         public int CityID { get; set; }
+
+        [Required(ErrorMessage = "The field Region is requerid")]
         public int RegionID { get; set; }
+
+        [Required(ErrorMessage = "The field city is requerid")]
+        [RegularExpression("^[a-z A-Z]+$")]
+        [StringLength(maximumLength:100,MinimumLength =3)]
         public string CityName { get; set; }
+
         public string RegionName { get; set; }
+
+        public EntityState State { get; set; }
 
         public IEnumerable<CityViewModel> GetCities()
         {
             List<CityViewModel> cities = new List<CityViewModel>();
 
-            var cityViews = (
-                from getCities in _city.GetAll()
-                join getRegions in _region.GetAll()
-                    on getCities.RegionID equals getRegions.RegionID
-                select new
-                {
-                    getRegions.RegionID,
-                    getRegions.RegionName,
-                    getCities.CityID,
-                    getCities.CityName
-                });
+            var cityModel = _city.GetAll();
 
-            foreach (var city in cityViews)
+            foreach (var city in cityModel)
             {
-                cities.Add(new CityViewModel()
+                var item = new CityViewModel
                 {
-                    RegionID = city.RegionID,
-                    RegionName = city.RegionName,
                     CityID = city.CityID,
-                    CityName = city.CityName
-                });
+                    RegionID = city.RegionID,
+                    CityName = city.CityName,
+                    RegionName = city.RegionName
+                };
+                cities.Add(item);
             }
 
             return cities;
         }
 
-        public IEnumerable<RegionModel> GetRegionModels()
+    public IEnumerable<RegionModel> GetRegionModels()
         {
             return _region.GetAll();
         }
@@ -67,8 +70,9 @@ namespace PersonaPrueba.Views.ViewModels
             return _city.SaveChanges();
         }
 
-        public void SetDataToPropierties()
+        private void SetDataToPropierties()
         {
+            _city.State = State;
             _city.CityID = CityID;
             _city.RegionID = RegionID;
             _city.CityName = CityName;
