@@ -23,6 +23,7 @@ namespace PersonaPrueba.Domain.Models
 
         public int RegionID { get; set; }
         public string RegionName { get; set; }
+
         public EntityState State { set => _state = value; }
 
         public IEnumerable<RegionModel> GetAll()
@@ -51,7 +52,7 @@ namespace PersonaPrueba.Domain.Models
 
             try
             {
-                SetDataToPropierties();
+                SetDataToEntity();
 
                 switch (_state)
                 {
@@ -80,7 +81,7 @@ namespace PersonaPrueba.Domain.Models
             return message;
         }
 
-        private void SetDataToPropierties()
+        private void SetDataToEntity()
         {
             _entity.RegionID = RegionID;
             _entity.RegionName = RegionName;

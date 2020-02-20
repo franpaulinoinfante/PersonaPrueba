@@ -39,10 +39,12 @@
             this.dgvCity = new System.Windows.Forms.DataGridView();
             this.CityID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dtxtRegion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dtxtCity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dtxtCityName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbRegion = new System.Windows.Forms.ComboBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSalve
@@ -139,18 +141,18 @@
             this.dgvCity.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CityID,
             this.dtxtRegion,
-            this.dtxtCity});
+            this.dtxtCityName});
             this.dgvCity.Location = new System.Drawing.Point(12, 42);
             this.dgvCity.Margin = new System.Windows.Forms.Padding(4);
             this.dgvCity.Name = "dgvCity";
             this.dgvCity.ReadOnly = true;
-            this.dgvCity.Size = new System.Drawing.Size(392, 196);
+            this.dgvCity.Size = new System.Drawing.Size(392, 32);
             this.dgvCity.TabIndex = 28;
             this.dgvCity.DoubleClick += new System.EventHandler(this.dgvCity_DoubleClick);
             // 
             // CityID
             // 
-            this.CityID.HeaderText = "Id";
+            this.CityID.HeaderText = "ID";
             this.CityID.Name = "CityID";
             this.CityID.ReadOnly = true;
             // 
@@ -160,11 +162,11 @@
             this.dtxtRegion.Name = "dtxtRegion";
             this.dtxtRegion.ReadOnly = true;
             // 
-            // dtxtCity
+            // dtxtCityName
             // 
-            this.dtxtCity.HeaderText = "Ciudad";
-            this.dtxtCity.Name = "dtxtCity";
-            this.dtxtCity.ReadOnly = true;
+            this.dtxtCityName.HeaderText = "Ciudad";
+            this.dtxtCityName.Name = "dtxtCityName";
+            this.dtxtCityName.ReadOnly = true;
             // 
             // label2
             // 
@@ -185,11 +187,28 @@
             this.cmbRegion.Size = new System.Drawing.Size(178, 25);
             this.cmbRegion.TabIndex = 38;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(13, 82);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.Size = new System.Drawing.Size(392, 156);
+            this.dataGridView1.TabIndex = 39;
+            // 
             // CityView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 252);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cmbRegion);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnSalve);
@@ -212,6 +231,7 @@
             this.Text = "CityView";
             this.Load += new System.EventHandler(this.CityView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,6 +252,7 @@
         private System.Windows.Forms.ComboBox cmbRegion;
         private System.Windows.Forms.DataGridViewTextBoxColumn CityID;
         private System.Windows.Forms.DataGridViewTextBoxColumn dtxtRegion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dtxtCity;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dtxtCityName;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

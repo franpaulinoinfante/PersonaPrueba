@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
-using PersonaPrueba.Domain.Contracts;
-using PersonaPrueba.Domain.Models;
 using PersonaPrueba.Domain.ObjectValues;
 using PersonaPrueba.Views.ViewHelps;
 using PersonaPrueba.Views.ViewModels;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace PersonaPrueba.Views.Views
 {
     public partial class CityView : Form
     {
-        private CityViewModel _cityView;
+        private CityViewModel _cityViewModel;
 
         private int _index = -1;
         private int _id = -1;
@@ -19,7 +19,7 @@ namespace PersonaPrueba.Views.Views
         {
             InitializeComponent();
 
-            _cityView = new CityViewModel();
+            _cityViewModel = new CityViewModel();
         }
 
         private void CityView_Load(object sender, EventArgs e)
@@ -37,13 +37,14 @@ namespace PersonaPrueba.Views.Views
 
             SetDataToPropierties();
 
-            if (ValidationData(_cityView) == true)
+            if (ValidationData(_cityViewModel) == true)
             {
-                
-                MessageResult.ShowResults(_cityView.SaveChanges());
+                return;
             }
 
-            BlockControlleres();
+            MessageResult.ShowResults(_cityViewModel.SaveChanges());
+
+            BlockControllers();
 
             ActionControls.RefreshControllers(this);
 
@@ -56,7 +57,7 @@ namespace PersonaPrueba.Views.Views
 
             ActiveControlleres();
             
-            _cityView.State = EntityState.Added;
+            _cityViewModel.State = EntityState.Added;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -69,7 +70,7 @@ namespace PersonaPrueba.Views.Views
 
             ActiveControlleres();
 
-            _cityView.State = EntityState.Edited;
+            _cityViewModel.State = EntityState.Edited;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -80,7 +81,7 @@ namespace PersonaPrueba.Views.Views
                 return;
             }
 
-            _cityView.State = EntityState.Deleted;
+            _cityViewModel.State = EntityState.Deleted;
 
             btnSalve_Click(this, e);
         }
@@ -94,7 +95,7 @@ namespace PersonaPrueba.Views.Views
 
             ActionControls.RefreshControllers(this);
 
-            BlockControlleres();
+            BlockControllers();
         }
 
         private void dgvCity_DoubleClick(object sender, EventArgs e)
@@ -102,19 +103,18 @@ namespace PersonaPrueba.Views.Views
             _index = Convert.ToInt32(dgvCity.CurrentRow.Index);
             _id = Convert.ToInt32(dgvCity.CurrentRow.Cells["CityID"].Value);
             cmbRegion.Text = dgvCity.CurrentRow.Cells["dtxtRegion"].Value.ToString();
-            txtCityName.Text = dgvCity.CurrentRow.Cells["dtxtCity"].Value.ToString();
+            txtCityName.Text = dgvCity.CurrentRow.Cells["dtxtCityName"].Value.ToString();
         }
 
         private void GetCities()
         {
-            dgvCity.Rows.Clear();
-
             try
             {
-                foreach (var city in _cityView.GetCities())
-                {
-                    dgvCity.Rows.Add(city.CityID, city.RegionName, city.CityName);
-                }
+                dataGridView1.DataSource = _cityViewModel.GetCities();
+                //foreach (var item in _cityView.GetCities())
+                //{
+                //    dgvCity.Rows.Add(item.CityID, item.RegionName, item.CityName);
+                //}
             }
             catch (Exception ex)
             {
@@ -126,19 +126,20 @@ namespace PersonaPrueba.Views.Views
         {
             cmbRegion.DisplayMember = "RegionName";
             cmbRegion.ValueMember = "RegionID";
-            cmbRegion.DataSource = _cityView.GetRegionModels();
+            cmbRegion.DataSource = _cityViewModel.GetRegionModels();
         }
 
         private void SetDataToPropierties()
         {
-            _cityView.CityID = _id;
-            _cityView.RegionID = Convert.ToInt32(cmbRegion.SelectedValue);
-            _cityView.CityName = txtCityName.Text;
+            _cityViewModel.CityID = _id;
+            _cityViewModel.RegionID = Convert.ToInt32(cmbRegion.SelectedValue);
+            _cityViewModel.CityName = txtCityName.Text;
         }
 
         private bool ValidationData(CityViewModel cityViewModel)
         {
             bool valid = new DataValidation(cityViewModel).Validate();
+
             if (valid == true)
             {
                 return true;
@@ -162,7 +163,7 @@ namespace PersonaPrueba.Views.Views
             cmbRegion.Focus();
         }
 
-        private void BlockControlleres()
+        private void BlockControllers()
         {
             ActionControls.BlockControllers(this);
 

@@ -23,7 +23,7 @@ namespace PersonaPrueba.Views.ViewHelps
 
         public bool Validate()
         {
-            if (_valid==false)
+            if (_valid == false)
             {
                 foreach (ValidationResult validation in _result)
                 {

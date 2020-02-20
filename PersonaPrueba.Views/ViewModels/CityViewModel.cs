@@ -22,24 +22,27 @@ namespace PersonaPrueba.Views.ViewModels
             _region = new RegionModel();
         }
 
-        [Required(ErrorMessage = "The field Region is requerid")]
+        [Display(Name ="ID",Order = -9)]
         public int CityID { get; set; }
 
         [Required(ErrorMessage = "The field Region is requerid")]
-        public int RegionID { get; set; }
+        [RegularExpression("[0-9]+", ErrorMessage = "The RegionID can be only numbers")]
+        public int RegionID { private get; set; }
 
         [Required(ErrorMessage = "The field city is requerid")]
         [RegularExpression("^[a-z A-Z]+$")]
-        [StringLength(maximumLength:100,MinimumLength =3)]
+        [StringLength(maximumLength: 100, MinimumLength = 3)]
+        [Display(Name = "Ciudad", Order = -9,Prompt ="Enter the city" ,Description = "Emp Ciudad")]
         public string CityName { get; set; }
 
+        [Display(Name = "Region")]
         public string RegionName { get; set; }
 
-        public EntityState State { get; set; }
+        public EntityState State { private get; set; }
 
         public IEnumerable<CityViewModel> GetCities()
         {
-            List<CityViewModel> cities = new List<CityViewModel>();
+            var cities = new List<CityViewModel>();
 
             var cityModel = _city.GetAll();
 
@@ -58,7 +61,7 @@ namespace PersonaPrueba.Views.ViewModels
             return cities;
         }
 
-    public IEnumerable<RegionModel> GetRegionModels()
+        public IEnumerable<RegionModel> GetRegionModels()
         {
             return _region.GetAll();
         }
@@ -72,10 +75,13 @@ namespace PersonaPrueba.Views.ViewModels
 
         private void SetDataToPropierties()
         {
-            _city.State = State;
-            _city.CityID = CityID;
-            _city.RegionID = RegionID;
-            _city.CityName = CityName;
+            CityModel model = new CityModel
+            {
+                State = State,
+                CityID = CityID,
+                RegionID = RegionID,
+                CityName = CityName
+            };
         }
     }
 }

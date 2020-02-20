@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,10 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\ICity.cs" />
+    <Compile Include="Contracts\IDocumentOperation.cs" />
     <Compile Include="Contracts\IGenericDataAccess.cs" />
+    <Compile Include="Contracts\IGenericOperation.cs" />
     <Compile Include="Contracts\IRegion.cs" />
     <Compile Include="Entities\CityEntity.cs" />
     <Compile Include="Models\CityModel.cs" />
+    <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="ObjectValues\EntityState.cs" />
     <Compile Include="ObjectValues\Factory.cs" />

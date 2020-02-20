@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 using PersonaPrueba.Domain.Contracts;
 using PersonaPrueba.Domain.Models;
 using PersonaPrueba.Domain.ObjectValues;
 using PersonaPrueba.Views.ViewHelps;
+using PersonaPrueba.Views.ViewModels;
 
 namespace PersonaPrueba.Views.Views
 {
     public partial class RegionView : Form
     {
-        private readonly IRegion _regionModel;
+        private readonly RegionViewModel _region;
         private int _index = -1;
         private int _id = 0;
 
@@ -17,7 +20,7 @@ namespace PersonaPrueba.Views.Views
         {
             InitializeComponent();
 
-            _regionModel = new RegionModel();
+            _region = new RegionViewModel();
         }
 
         private void RegionView_Load(object sender, EventArgs e)
@@ -27,14 +30,20 @@ namespace PersonaPrueba.Views.Views
 
         private void btnSalve_Click(object sender, EventArgs e)
         {
-            if (DialogConfirm.GetResult("Do you want save the changes?", "Question").Equals(DialogResult.Cancel))
+            if (DialogConfirm.GetResult("Do you want save the changes?", "Question").Equals(DialogResult.No))
             {
                 return;
             }
 
             SetDataToPropierties();
 
-            MessageResult.ShowResults(_regionModel.SaveChanges());
+            if (ValidationData(_region) == false)
+            {
+                return;
+            }
+
+
+            MessageResult.ShowResults(_region.SaveChanges());
 
             BlockControllers();
 
@@ -47,7 +56,7 @@ namespace PersonaPrueba.Views.Views
         {
             ActiveControllers();
 
-            _regionModel.State = EntityState.Added;
+            _region.State = EntityState.Added;
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -60,7 +69,7 @@ namespace PersonaPrueba.Views.Views
 
             ActiveControllers();
 
-            _regionModel.State = EntityState.Edited;
+            _region.State = EntityState.Edited;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -71,7 +80,7 @@ namespace PersonaPrueba.Views.Views
                 return;
             }
 
-            _regionModel.State = EntityState.Deleted;
+            _region.State = EntityState.Deleted;
 
             btnSalve_Click(this, e);
         }
@@ -99,14 +108,36 @@ namespace PersonaPrueba.Views.Views
 
         private void GetRegions()
         {
-            dgvRegion.DataSource = _regionModel.GetAll();
+            try
+            {
+                dgvRegion.DataSource = _region.GetRegions();
+            }
+            catch (Exception ex)
+            {
+                MessageResult.LogErrors(ex.Message);
+            }
         }
 
         private void SetDataToPropierties()
         {
-            _regionModel.RegionID = _id;
-            _regionModel.RegionName = txtRegionName.Text.Trim();
+            _region.RegionID = _id;
+            _region.RegionName = txtRegionName.Text.Trim();
         }
+
+        private bool ValidationData(RegionViewModel region)
+        {
+            bool valid = new DataValidation(region).Validate();
+
+            if (valid == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
 
         private void ActiveControllers()
         {
